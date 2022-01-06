@@ -1,0 +1,414 @@
+{
+  "paragraphs": [
+    {
+      "title": "Load Data",
+      "text": "%sql\nDROP TABLE IF EXISTS adult",
+      "user": "anonymous",
+      "dateUpdated": "Jun 7, 2019 2:57:14 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559869320879_81118322",
+      "id": "20190607-010200_124388389",
+      "dateCreated": "Jun 7, 2019 1:02:00 AM",
+      "dateStarted": "Jun 7, 2019 2:57:14 AM",
+      "dateFinished": "Jun 7, 2019 2:57:14 AM",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql \nCREATE TABLE adult (\n  age DOUBLE,\n  workclass STRING,\n  fnlwgt DOUBLE,\n  education STRING,\n  education_num DOUBLE,\n  marital_status STRING,\n  occupation STRING,\n  relationship STRING,\n  race STRING,\n  sex STRING,\n  capital_gain DOUBLE,\n  capital_loss DOUBLE,\n  hours_per_week DOUBLE,\n  native_country STRING,\n  income STRING)\nUSING CSV\nOPTIONS (path \"/usr/zeppelin/notebook/dataset/adult.data\", header \"true\")",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:52:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": ""
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559837854181_-458791360",
+      "id": "20190606-161734_49122392",
+      "dateCreated": "Jun 6, 2019 4:17:34 PM",
+      "dateStarted": "Dec 2, 2019 7:39:17 AM",
+      "dateFinished": "Dec 2, 2019 7:39:18 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 8, 2019 8:53:45 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559984025950_2090301394",
+      "id": "20190608-085345_970697547",
+      "dateCreated": "Jun 8, 2019 8:53:45 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndataset \u003d spark.table(\"adult\")\ncols \u003d dataset.columns\ndataset.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:53:02 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- age: double (nullable \u003d true)\n |-- workclass: string (nullable \u003d true)\n |-- fnlwgt: double (nullable \u003d true)\n |-- education: string (nullable \u003d true)\n |-- education_num: double (nullable \u003d true)\n |-- marital_status: string (nullable \u003d true)\n |-- occupation: string (nullable \u003d true)\n |-- relationship: string (nullable \u003d true)\n |-- race: string (nullable \u003d true)\n |-- sex: string (nullable \u003d true)\n |-- capital_gain: double (nullable \u003d true)\n |-- capital_loss: double (nullable \u003d true)\n |-- hours_per_week: double (nullable \u003d true)\n |-- native_country: string (nullable \u003d true)\n |-- income: string (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559869187453_485722567",
+      "id": "20190607-005947_287688399",
+      "dateCreated": "Jun 7, 2019 12:59:47 AM",
+      "dateStarted": "Dec 2, 2019 7:53:02 AM",
+      "dateFinished": "Dec 2, 2019 7:53:02 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndataset.show()",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:39:41 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+----+-----------------+--------+-------------+-------------+--------------------+------------------+--------------+-------------------+-------+------------+------------+--------------+--------------+------+\n| age|        workclass|  fnlwgt|    education|education_num|      marital_status|        occupation|  relationship|               race|    sex|capital_gain|capital_loss|hours_per_week|native_country|income|\n+----+-----------------+--------+-------------+-------------+--------------------+------------------+--------------+-------------------+-------+------------+------------+--------------+--------------+------+\n|50.0| Self-emp-not-inc| 83311.0|    Bachelors|         13.0|  Married-civ-spouse|   Exec-managerial|       Husband|              White|   Male|         0.0|         0.0|          13.0| United-States| \u003c\u003d50K|\n|38.0|          Private|215646.0|      HS-grad|          9.0|            Divorced| Handlers-cleaners| Not-in-family|              White|   Male|         0.0|         0.0|          40.0| United-States| \u003c\u003d50K|\n|53.0|          Private|234721.0|         11th|          7.0|  Married-civ-spouse| Handlers-cleaners|       Husband|              Black|   Male|         0.0|         0.0|          40.0| United-States| \u003c\u003d50K|\n|28.0|          Private|338409.0|    Bachelors|         13.0|  Married-civ-spouse|    Prof-specialty|          Wife|              Black| Female|         0.0|         0.0|          40.0|          Cuba| \u003c\u003d50K|\n|37.0|          Private|284582.0|      Masters|         14.0|  Married-civ-spouse|   Exec-managerial|          Wife|              White| Female|         0.0|         0.0|          40.0| United-States| \u003c\u003d50K|\n|49.0|          Private|160187.0|          9th|          5.0| Married-spouse-a...|     Other-service| Not-in-family|              Black| Female|         0.0|         0.0|          16.0|       Jamaica| \u003c\u003d50K|\n|52.0| Self-emp-not-inc|209642.0|      HS-grad|          9.0|  Married-civ-spouse|   Exec-managerial|       Husband|              White|   Male|         0.0|         0.0|          45.0| United-States|  \u003e50K|\n|31.0|          Private| 45781.0|      Masters|         14.0|       Never-married|    Prof-specialty| Not-in-family|              White| Female|     14084.0|         0.0|          50.0| United-States|  \u003e50K|\n|42.0|          Private|159449.0|    Bachelors|         13.0|  Married-civ-spouse|   Exec-managerial|       Husband|              White|   Male|      5178.0|         0.0|          40.0| United-States|  \u003e50K|\n|37.0|          Private|280464.0| Some-college|         10.0|  Married-civ-spouse|   Exec-managerial|       Husband|              Black|   Male|         0.0|         0.0|          80.0| United-States|  \u003e50K|\n|30.0|        State-gov|141297.0|    Bachelors|         13.0|  Married-civ-spouse|    Prof-specialty|       Husband| Asian-Pac-Islander|   Male|         0.0|         0.0|          40.0|         India|  \u003e50K|\n|23.0|          Private|122272.0|    Bachelors|         13.0|       Never-married|      Adm-clerical|     Own-child|              White| Female|         0.0|         0.0|          30.0| United-States| \u003c\u003d50K|\n|32.0|          Private|205019.0|   Assoc-acdm|         12.0|       Never-married|             Sales| Not-in-family|              Black|   Male|         0.0|         0.0|          50.0| United-States| \u003c\u003d50K|\n|40.0|          Private|121772.0|    Assoc-voc|         11.0|  Married-civ-spouse|      Craft-repair|       Husband| Asian-Pac-Islander|   Male|         0.0|         0.0|          40.0|             ?|  \u003e50K|\n|34.0|          Private|245487.0|      7th-8th|          4.0|  Married-civ-spouse|  Transport-moving|       Husband| Amer-Indian-Eskimo|   Male|         0.0|         0.0|          45.0|        Mexico| \u003c\u003d50K|\n|25.0| Self-emp-not-inc|176756.0|      HS-grad|          9.0|       Never-married|   Farming-fishing|     Own-child|              White|   Male|         0.0|         0.0|          35.0| United-States| \u003c\u003d50K|\n|32.0|          Private|186824.0|      HS-grad|          9.0|       Never-married| Machine-op-inspct|     Unmarried|              White|   Male|         0.0|         0.0|          40.0| United-States| \u003c\u003d50K|\n|38.0|          Private| 28887.0|         11th|          7.0|  Married-civ-spouse|             Sales|       Husband|              White|   Male|         0.0|         0.0|          50.0| United-States| \u003c\u003d50K|\n|43.0| Self-emp-not-inc|292175.0|      Masters|         14.0|            Divorced|   Exec-managerial|     Unmarried|              White| Female|         0.0|         0.0|          45.0| United-States|  \u003e50K|\n|40.0|          Private|193524.0|    Doctorate|         16.0|  Married-civ-spouse|    Prof-specialty|       Husband|              White|   Male|         0.0|         0.0|          60.0| United-States|  \u003e50K|\n+----+-----------------+--------+-------------+-------------+--------------------+------------------+--------------+-------------------+-------+------------+------------+--------------+--------------+------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559984257427_1713353097",
+      "id": "20190608-085737_1137913353",
+      "dateCreated": "Jun 8, 2019 8:57:37 AM",
+      "dateStarted": "Dec 2, 2019 7:39:42 AM",
+      "dateFinished": "Dec 2, 2019 7:39:44 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Preprocess Data",
+      "text": "%pyspark\nfrom pyspark.ml import Pipeline\nfrom pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler\ncategoricalColumns \u003d [\"workclass\", \"education\", \"marital_status\", \"occupation\", \"relationship\", \"race\", \"sex\", \"native_country\"]\nstages \u003d [] # stages in our Pipeline\nfor categoricalCol in categoricalColumns:\n    # Category Indexing with StringIndexer\n    stringIndexer \u003d StringIndexer(inputCol\u003dcategoricalCol, outputCol\u003dcategoricalCol + \"Index\")\n    # Use OneHotEncoder to convert categorical variables into binary SparseVectors\n    encoder \u003d OneHotEncoder(inputCol\u003dcategoricalCol + \"Index\", outputCol\u003dcategoricalCol + \"classVec\")\n    # Add stages.  These are not run here, but will run all at once later on.\n    stages +\u003d [stringIndexer, encoder]\n    \n# Convert label into label indices using the StringIndexer\nlabel_stringIdx \u003d StringIndexer(inputCol\u003d\"income\", outputCol\u003d\"label\")\nstages +\u003d [label_stringIdx]\n\n# Transform all features into a vector using VectorAssembler\nnumericCols \u003d [\"age\", \"fnlwgt\", \"education_num\", \"capital_gain\", \"capital_loss\", \"hours_per_week\"]\nassemblerInputs \u003d [c + \"classVec\" for c in categoricalColumns] + numericCols\nassembler \u003d VectorAssembler(inputCols\u003dassemblerInputs, outputCol\u003d\"features\")\nstages +\u003d [assembler]",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:41:15 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1559869375394_-1907371263",
+      "id": "20190607-010255_1654554349",
+      "dateCreated": "Jun 7, 2019 1:02:55 AM",
+      "dateStarted": "Dec 2, 2019 7:41:15 AM",
+      "dateFinished": "Dec 2, 2019 7:41:15 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Split training and testing data",
+      "text": "%pyspark\nfrom pyspark.ml.classification import LogisticRegression\n  \npartialPipeline \u003d Pipeline().setStages(stages)\npipelineModel \u003d partialPipeline.fit(dataset)\npreppedDataDF \u003d pipelineModel.transform(dataset)\n\n# Fit model to prepped data\nlrModel \u003d LogisticRegression().fit(preppedDataDF)\n\n# Keep relevant columns\nselectedcols \u003d [\"label\", \"features\"] + cols\ndataset \u003d preppedDataDF.select(selectedcols)\n\n(trainingData, testData) \u003d dataset.randomSplit([0.8, 0.2], seed\u003d100)\nprint(trainingData.count())\nprint(testData.count())",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:42:37 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "26067\n6493\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559869398202_1340525709",
+      "id": "20190607-010318_1026877646",
+      "dateCreated": "Jun 7, 2019 1:03:18 AM",
+      "dateStarted": "Dec 2, 2019 7:42:38 AM",
+      "dateFinished": "Dec 2, 2019 7:42:57 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Train using Logistic Regression",
+      "text": "%pyspark\nfrom pyspark.ml.classification import LogisticRegression\n\n# Create initial LogisticRegression model\nlr \u003d LogisticRegression(labelCol\u003d\"label\", featuresCol\u003d\"features\", maxIter\u003d10)\n\n# Train model with Training Data\nlrModel \u003d lr.fit(trainingData)",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:43:47 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1559870276441_1872708938",
+      "id": "20190607-011756_14556370",
+      "dateCreated": "Jun 7, 2019 1:17:56 AM",
+      "dateStarted": "Dec 2, 2019 7:43:47 AM",
+      "dateFinished": "Dec 2, 2019 7:43:49 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Prediction",
+      "text": "%pyspark\n# Make predictions on test data using the transform() method.\n# LogisticRegression.transform() will only use the \u0027features\u0027 column.\npredictions \u003d lrModel.transform(testData)\nselected \u003d predictions.select(\"label\", \"prediction\", \"probability\", \"age\", \"occupation\")\nselected.show()",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:44:20 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-----+----------+--------------------+----+---------------+\n|label|prediction|         probability| age|     occupation|\n+-----+----------+--------------------+----+---------------+\n|  0.0|       0.0|[0.68182015932908...|26.0| Prof-specialty|\n|  0.0|       0.0|[0.61488444519923...|30.0| Prof-specialty|\n|  0.0|       0.0|[0.65213824829649...|31.0| Prof-specialty|\n|  0.0|       0.0|[0.65272496056462...|32.0| Prof-specialty|\n|  0.0|       0.0|[0.61586686890123...|39.0| Prof-specialty|\n|  0.0|       0.0|[0.61045283405806...|50.0| Prof-specialty|\n|  0.0|       0.0|[0.60104515752830...|51.0| Prof-specialty|\n|  0.0|       0.0|[0.60092985478351...|60.0| Prof-specialty|\n|  0.0|       0.0|[0.61094832361717...|61.0| Prof-specialty|\n|  0.0|       0.0|[0.98918318644974...|20.0| Prof-specialty|\n|  0.0|       1.0|[0.42886216012531...|35.0| Prof-specialty|\n|  0.0|       0.0|[0.72348879619028...|48.0| Prof-specialty|\n|  0.0|       0.0|[0.65278163379730...|28.0|   Craft-repair|\n|  0.0|       0.0|[0.56362291147618...|32.0|   Craft-repair|\n|  0.0|       0.0|[0.55651425621287...|36.0|   Craft-repair|\n|  0.0|       1.0|[0.39174282907748...|56.0|   Craft-repair|\n|  0.0|       1.0|[0.40933673016726...|37.0|   Craft-repair|\n|  0.0|       0.0|[0.50541020373495...|37.0|   Craft-repair|\n|  0.0|       1.0|[0.35210101801027...|58.0|   Craft-repair|\n|  0.0|       0.0|[0.81881384115018...|19.0|   Craft-repair|\n+-----+----------+--------------------+----+---------------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559871051353_-1261183056",
+      "id": "20190607-013051_728042559",
+      "dateCreated": "Jun 7, 2019 1:30:51 AM",
+      "dateStarted": "Dec 2, 2019 7:44:20 AM",
+      "dateFinished": "Dec 2, 2019 7:44:21 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ntestData.groupBy(\u0027label\u0027).count().show()\nnewTestData \u003d testData.filter(lambda x: x[\u0027label\u0027] \u003d\u003d 0)",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:51:36 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-----+-----+\n|label|count|\n+-----+-----+\n|  0.0| 4924|\n|  1.0| 1569|\n+-----+-----+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559985037473_1018627399",
+      "id": "20190608-091037_1355458426",
+      "dateCreated": "Jun 8, 2019 9:10:37 AM",
+      "dateStarted": "Dec 2, 2019 7:49:19 AM",
+      "dateFinished": "Dec 2, 2019 7:49:22 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Evaluation",
+      "text": "%pyspark\nfrom pyspark.ml.evaluation import BinaryClassificationEvaluator\n\n# Evaluate model\nevaluator \u003d BinaryClassificationEvaluator(rawPredictionCol\u003d\"rawPrediction\")\n\nprint(\"Test Area Under ROC: \" + str(evaluator.evaluate(predictions, {evaluator.metricName: \"areaUnderROC\"})))",
+      "user": "anonymous",
+      "dateUpdated": "Dec 2, 2019 7:46:27 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Test Area Under ROC: 0.9026092721540525\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559871084040_-964880430",
+      "id": "20190607-013124_155821542",
+      "dateCreated": "Jun 7, 2019 1:31:24 AM",
+      "dateStarted": "Dec 2, 2019 7:46:27 AM",
+      "dateFinished": "Dec 2, 2019 7:46:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 7, 2019 2:56:54 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559876214775_-1201396500",
+      "id": "20190607-025654_1950722358",
+      "dateCreated": "Jun 7, 2019 2:56:54 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/Big-data-class/Module-15/Binary-classification",
+  "id": "2ECT9FNZU",
+  "angularObjects": {
+    "2ESV83UHN:shared_process": [],
+    "2EWA4M4PF:shared_process": [],
+    "2ESZUF52Q:shared_process": [],
+    "2EV3W8JCG:shared_process": [],
+    "2EWF9P5SP:shared_process": [],
+    "2EWCZX62Y:shared_process": [],
+    "2ESWQUBSG:shared_process": [],
+    "2EVTX8KPF:shared_process": [],
+    "2EVWSU8G1:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

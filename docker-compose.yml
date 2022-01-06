@@ -1,0 +1,315 @@
+version: "3"
+
+networks:
+  custom_network:
+    name: mynetwork
+
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    restart: always
+    ports:
+      - 9870:9870
+      - 9000:9000
+    volumes:
+      - hadoop_namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop.env
+    networks:
+    - custom_network
+
+  datanode_one:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode_one
+    ports:
+      - 9864:9864
+    restart: always
+    volumes:
+      - hadoop_datanode_one:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+    networks:
+      - custom_network
+
+  datanode_two:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode_two
+    restart: always
+    ports:
+      - 9865:9864
+    volumes:
+      - hadoop_datanode_two:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+    networks:
+      - custom_network
+  
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    container_name: resourcemanager
+    ports:
+      - 8088:8088
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode_one:9864 datanode_two:9864"
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+      - datanode_one
+      - datanode_two
+    networks:
+    - custom_network
+
+  nodemanager1:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: nodemanager
+    ports:
+      - 8042:8042
+    restart: always
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode_one:9864 datanode_two:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+      - datanode_one
+      - datanode_two
+    networks:
+    - custom_network
+  
+  historyserver:
+    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+    container_name: historyserver
+    restart: always
+    ports:
+      - 8188:8188
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode_one:9864 datanode_two:9864 resourcemanager:8088"
+    volumes:
+      - hadoop_historyserver:/hadoop/yarn/timeline
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+      - datanode_one
+      - datanode_two
+    networks:
+    - custom_network
+
+  spark_master:
+    container_name: spark_master
+    image: registry.gitlab.com/chung-pi/spark-zeppelin/spark_master:latest
+    hostname: master
+    environment:
+      - ZEPPELIN_PORT=80
+      - SPARK_MASTER=spark://master:7077
+      - MASTER=local[*]
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_DRIVER_MEMORY=512m
+      - SPARK_EXECUTOR_MEMORY=512m
+    healthcheck:
+      disable: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - 4040:4040
+      - 7077:7077
+      - 6066:6066
+      - 8081:8080
+      - 80:80
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "2"
+    restart: "always"
+    extra_hosts:
+      - "master-spark:192.168.0.100"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4096M
+        reservations:
+          cpus: '1'
+          memory: 4096M
+    volumes:
+      - './notebook:/usr/zeppelin/notebook'
+    networks:
+    - custom_network
+
+  spark_worker_01:
+    container_name: spark_worker_01
+    image: spark_master:latest
+    hostname: worker_01
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+      labels:
+        com.bkwallet.description: "Big Data Class"
+        com.bkwallet.maintainer: "ChungDT <chungdt@soict.hust.edu.vn>"
+    environment:
+      - ZEPPELIN_PORT=80
+      - SPARK_MASTER=spark://master:7077
+      - MASTER=spark://master:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_DRIVER_MEMORY=128m
+      - SPARK_EXECUTOR_MEMORY=256m
+    healthcheck:
+      disable: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - "8091:80"
+      - "8082:8081"
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "2"
+    restart: "always"
+    networks:
+    - custom_network
+
+  spark_worker_02:
+    container_name: spark_worker_02
+    image: spark_master:latest
+    hostname: worker_02
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+      labels:
+        com.bkwallet.description: "Big Data Class"
+        com.bkwallet.maintainer: "ChungDT <chungdt@soict.hust.edu.vn>"
+    environment:
+      - ZEPPELIN_PORT=80
+      - SPARK_MASTER=spark://master:7077
+      - MASTER=spark://master:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_DRIVER_MEMORY=128m
+      - SPARK_EXECUTOR_MEMORY=256m
+    healthcheck:
+      disable: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - "8092:80"
+      - "8083:8081"
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "2"
+    restart: "always"
+    networks:
+    - custom_network
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    build:
+      context: .
+      dockerfile: Dockerfile.rabbitmq
+      labels:
+        com.bkwallet.description: "Big Data Class"
+        com.bkwallet.maintainer: "ChungDT <chungdt@soict.hust.edu.vn>"
+    environment:
+      - SPARK_MASTER=spark://master:7077
+      - MASTER=spark://master:7077
+    healthcheck:
+      disable: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "2"
+    restart: "always"
+    networks:
+    - custom_network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    build:
+      context: .
+      dockerfile: Dockerfile.elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - './elasticsearch/esdata1:/usr/share/elasticsearch/data'
+    ports:
+      - 9200:9200
+    networks:
+    - custom_network
+
+  elasticsearch2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    container_name: elasticsearch2
+    build:
+      context: .
+      dockerfile: Dockerfile.elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - './elasticsearch/esdata2:/usr/share/elasticsearch/data'
+    networks:
+    - custom_network
+
+  kibana:
+    image: 'docker.elastic.co/kibana/kibana:6.3.2'
+    container_name: kibana
+    environment:
+      SERVER_NAME: kibana.local
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    ports:
+      - '5601:5601'
+    networks:
+    - custom_network
+  
+volumes:
+  hadoop_namenode:
+  hadoop_datanode_one:
+  hadoop_datanode_two:
+  hadoop_historyserver:

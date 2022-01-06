@@ -1,0 +1,216 @@
+{
+  "paragraphs": [
+    {
+      "text": "%sh\npwd",
+      "dateUpdated": "Dec 7, 2021 1:41:35 PM",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sh",
+        "results": {},
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "/usr/zeppelin\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1638884495413_-1150539802",
+      "id": "20160722-064523_924527479",
+      "dateCreated": "Dec 7, 2021 1:41:35 PM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\nsc.version\nsc.master\nsc.appName\nsc.applicationId\nsc.jars\nsc.getConf.toDebugString\nsc.hadoopConfiguration",
+      "dateUpdated": "Dec 7, 2021 1:41:35 PM",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "results": {},
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res0: String \u003d 2.2.0\nres1: String \u003d local[*]\nres2: String \u003d Zeppelin\nres3: String \u003d local-1575266973883\nres4: Seq[String] \u003d List(file:/usr/zeppelin/interpreter/spark/zeppelin-spark_2.11-0.7.3.jar)\nres5: String \u003d\nconcurrentSQL\u003dfalse\nimportImplicit\u003dtrue\nmaxResult\u003d1000\nprintREPLOutput\u003dtrue\nspark.app.id\u003dlocal-1575266973883\nspark.app.name\u003dZeppelin\nspark.driver.extraClassPath\u003d:/usr/zeppelin/interpreter/spark/*:/usr/zeppelin/lib/interpreter/*::/usr/zeppelin/interpreter/spark/zeppelin-spark_2.11-0.7.3.jar\nspark.driver.extraJavaOptions\u003d -Dfile.encoding\u003dUTF-8 -Dlog4j.configuration\u003dfile:///usr/zeppelin/conf/log4j.properties -Dzeppelin.log.file\u003d/usr/zeppelin/logs/zeppelin-interpreter-spark--master.log\nspark.driver.host\u003d172.24.0.2\nspark.driver.memory\u003d512m\nspark.driver.port\u003d37805\nspark.executor.id\u003ddriver\nspark.home\u003d/usr/spark-2.2.0\nspark.jars\u003dfile:/usr/zeppelin/interpreter/spark/zeppelin-spark_2.11-0.7.3.jar\nspark.master\u003dlocal[*]\nspark.repl.class.outputDir\u003d/tmp/spark-bb822e87-d32a-4346-b74f-f2...res6: org.apache.hadoop.conf.Configuration \u003d Configuration: core-default.xml, core-site.xml, mapred-default.xml, mapred-site.xml, yarn-default.xml, yarn-site.xml, hdfs-default.xml, hdfs-site.xml\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1638884495415_-1149770304",
+      "id": "20160722-064553_1487295533",
+      "dateCreated": "Dec 7, 2021 1:41:35 PM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%python print(sys.version)",
+      "dateUpdated": "Dec 7, 2021 1:41:35 PM",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "results": {},
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_python-122441881511904249.py\", line 276, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\nNameError: name \u0027sys\u0027 is not defined\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_python-122441881511904249.py\", line 283, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_python-122441881511904249.py\", line 276, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\nNameError: name \u0027sys\u0027 is not defined\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1638884495416_-1151694049",
+      "id": "20160722-064604_1357965809",
+      "dateCreated": "Dec 7, 2021 1:41:35 PM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sh pip list ",
+      "dateUpdated": "Dec 7, 2021 1:41:35 PM",
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sh",
+        "results": {},
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DEPRECATION: The default format will switch to columns in the future. You can use --format\u003d(legacy|columns) (or define a format\u003d(legacy|columns) in your pip.conf under the [list] section) to disable this warning.\ncertifi (2019.3.9)\nchardet (3.0.4)\nelasticsearch (7.0.2)\nidna (2.8)\nnumpy (1.13.3)\npandas (0.20.3)\npandasql (0.7.3)\npika (1.0.1)\npip (9.0.1)\npy4j (0.10.6)\npython-dateutil (2.6.1)\npytz (2017.2)\nrequests (2.21.0)\nscipy (0.19.1)\nsetuptools (5.5.1)\nsix (1.11.0)\nSQLAlchemy (1.1.14)\nurllib3 (1.24.3)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1638884495416_-1151694049",
+      "id": "20160722-064622_1971147917",
+      "dateCreated": "Dec 7, 2021 1:41:35 PM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sh\n",
+      "dateUpdated": "Dec 7, 2021 1:41:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "results": {},
+        "enabled": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1638884495417_-1152078798",
+      "id": "20190608-042255_1146515450",
+      "dateCreated": "Dec 7, 2021 1:41:35 PM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "About this Build",
+  "id": "2GR4KMMP1",
+  "angularObjects": {
+    "2GRQ1QSRP:shared_process": [],
+    "2GQGDQCX6:shared_process": [],
+    "2GP2A1AYX:shared_process": [],
+    "2GPD3CBRH:shared_process": [],
+    "2GQZ271B1:shared_process": [],
+    "2GQ9NKG4E:shared_process": [],
+    "2GP3MXH9T:shared_process": [],
+    "2GNN9S42V:shared_process": [],
+    "2GP4KU7NF:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

@@ -1,0 +1,145 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n## Install cluster\n+ https://blog.ruanbekker.com/blog/2018/04/29/running-a-3-node-elasticsearch-cluster-with-docker-compose-on-your-laptop-for-testing/",
+      "user": "anonymous",
+      "dateUpdated": "Jun 8, 2019 7:53:43 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eInstall cluster\u003c/h2\u003e\n\u003cul\u003e\n  \u003cli\u003e\u003ca href\u003d\"https://blog.ruanbekker.com/blog/2018/04/29/running-a-3-node-elasticsearch-cluster-with-docker-compose-on-your-laptop-for-testing/\"\u003ehttps://blog.ruanbekker.com/blog/2018/04/29/running-a-3-node-elasticsearch-cluster-with-docker-compose-on-your-laptop-for-testing/\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559702900715_347841156",
+      "id": "20190605-024820_860530370",
+      "dateCreated": "Jun 5, 2019 2:48:20 AM",
+      "dateStarted": "Jun 8, 2019 7:53:43 AM",
+      "dateFinished": "Jun 8, 2019 7:53:43 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%python\nimport requests\n\nHOSTNAME \u003d \u0027172.21.0.2\u0027\nPORT     \u003d 9200\n\n# make sure ES is up and running\nres \u003d requests.get(\u0027http://172.21.0.2:9200\u0027)\n\n#connect to our cluster\nfrom elasticsearch import Elasticsearch\nes \u003d Elasticsearch([{\u0027host\u0027: HOSTNAME, \u0027port\u0027: PORT}])\n\nif (res.status_code \u003d\u003d 200):\n    es.index(index\u003d\u0027test\u0027, doc_type\u003d\u0027name\u0027, id\u003d1, body\u003d\u0027{\"name\":\"chung\", \"age\":\"31\"}\u0027)\n    \nes.get(index\u003d\u0027test\u0027, doc_type\u003d\u0027name\u0027, id\u003d1)\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 9:09:09 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "{\u0027_id\u0027: \u00271\u0027, \u0027_type\u0027: \u0027name\u0027, \u0027_version\u0027: 1, \u0027found\u0027: True, \u0027_source\u0027: {\u0027age\u0027: \u002731\u0027, \u0027name\u0027: \u0027chung\u0027}, \u0027_index\u0027: \u0027test\u0027}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559889690773_1720344046",
+      "id": "20190607-064130_2066012620",
+      "dateCreated": "Jun 7, 2019 6:41:30 AM",
+      "dateStarted": "Jan 4, 2022 9:09:10 AM",
+      "dateFinished": "Jan 4, 2022 9:09:20 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%python\n# Receive a message and write to Elasticsearch\nimport pika\nimport json\nfrom elasticsearch import Elasticsearch\n\nHOSTNAME \u003d \u0027elasticsearch\u0027\nPORT     \u003d 9200\nINDEX    \u003d \u0027chung\u0027\n\nconnection \u003d pika.BlockingConnection(\n    pika.ConnectionParameters(host\u003d\u0027rabbitmq\u0027))\nchannel \u003d connection.channel()\n\nchannel.queue_declare(queue\u003d\u0027sensor\u0027)\n\nes \u003d Elasticsearch([{\u0027host\u0027: HOSTNAME, \u0027port\u0027: PORT}])\n\ndef callback(ch, method, properties, body):\n    print(\" [x] Received %r\" % body)\n    # Write to Elasticsearch\n    item \u003d json.loads(body.decode(\"utf-8\"))\n    es.index(index\u003dINDEX, doc_type\u003ditem[\u0027Mote-ID\u0027], id\u003ditem[\u0027Reading\u0027], body\u003dbody.decode(\"utf-8\"))\n    ch.basic_ack(delivery_tag\u003dmethod.delivery_tag)\n    ch.stop_consuming()\n\nchannel.basic_consume(\n    queue\u003d\u0027sensor\u0027, on_message_callback\u003dcallback, auto_ack\u003dFalse)\n\nchannel.start_consuming()\nconnection.close()\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 8, 2019 7:53:50 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": " [x] Received b\u0027{\"Label\": 0, \"Mote-ID\": 1, \"Tepmrature\": 27.98, \"Reading\": 6, \"Humidity\": 45.9}\u0027\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559755498847_1248876298",
+      "id": "20190605-172458_439292384",
+      "dateCreated": "Jun 5, 2019 5:24:58 PM",
+      "dateStarted": "Jun 8, 2019 7:53:50 AM",
+      "dateFinished": "Jun 8, 2019 7:53:50 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%python\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 7, 2019 7:03:39 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559891019900_1953168560",
+      "id": "20190607-070339_869821135",
+      "dateCreated": "Jun 7, 2019 7:03:39 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/Big-data-class/Module-13/Elasticsearch",
+  "id": "2EDDH5W69",
+  "angularObjects": {
+    "2GTRDN9WU:shared_process": [],
+    "2GTSF2313:shared_process": [],
+    "2GT1A1FJF:shared_process": [],
+    "2GS7VK5MK:shared_process": [],
+    "2GU41AS4J:shared_process": [],
+    "2GTQTEKCA:shared_process": [],
+    "2GRK89MUX:shared_process": [],
+    "2GTTNYHED:shared_process": [],
+    "2GQZJPDRG:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

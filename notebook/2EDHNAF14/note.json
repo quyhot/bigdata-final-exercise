@@ -1,0 +1,186 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n## Link \n+ https://www.rabbitmq.com/tutorials/tutorial-one-python.html\n+ https://pika.readthedocs.io/en/stable/modules/channel.html",
+      "user": "anonymous",
+      "dateUpdated": "Jun 8, 2019 7:51:59 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text",
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eLink\u003c/h2\u003e\n\u003cul\u003e\n  \u003cli\u003e\u003ca href\u003d\"https://www.rabbitmq.com/tutorials/tutorial-one-python.html\"\u003ehttps://www.rabbitmq.com/tutorials/tutorial-one-python.html\u003c/a\u003e\u003c/li\u003e\n  \u003cli\u003e\u003ca href\u003d\"https://pika.readthedocs.io/en/stable/modules/channel.html\"\u003ehttps://pika.readthedocs.io/en/stable/modules/channel.html\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559700487471_996079588",
+      "id": "20190605-020807_1327102815",
+      "dateCreated": "Jun 5, 2019 2:08:07 AM",
+      "dateStarted": "Jun 8, 2019 7:51:59 AM",
+      "dateFinished": "Jun 8, 2019 7:52:01 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 8, 2019 7:51:55 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559980315912_-181745889",
+      "id": "20190608-075155_1268922732",
+      "dateCreated": "Jun 8, 2019 7:51:55 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "# Send a message\nimport pika\n\nconnection \u003d pika.BlockingConnection(pika.ConnectionParameters(\u002710.0.1.13\u0027))\nchannel \u003d connection.channel()\n\nchannel.queue_declare(queue\u003d\u0027hello\u0027)\nchannel.basic_publish(exchange\u003d\u0027\u0027,\n                      routing_key\u003d\u0027hello\u0027,\n                      body\u003d\u0027Hello World!\u0027)\nprint(\" [x] Sent \u0027Hello World!\u0027\")\n\nconnection.close()",
+      "user": "anonymous",
+      "dateUpdated": "Jun 5, 2019 2:09:23 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": " [x] Sent \u0027Hello World!\u0027\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559668512250_598803955",
+      "id": "20190604-171512_1718037856",
+      "dateCreated": "Jun 4, 2019 5:15:12 PM",
+      "dateStarted": "Jun 5, 2019 1:48:34 AM",
+      "dateFinished": "Jun 5, 2019 1:48:34 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%python\n# Receive messages in a loop\nimport pika\n\nconnection \u003d pika.BlockingConnection(\n    pika.ConnectionParameters(host\u003d\u002710.0.1.13\u0027))\nchannel \u003d connection.channel()\n\nchannel.queue_declare(queue\u003d\u0027hello\u0027)\n\n\ndef callback(ch, method, properties, body):\n    print(\" [x] Received %r\" % body)\n\nchannel.basic_consume(\n    queue\u003d\u0027hello\u0027, on_message_callback\u003dcallback, auto_ack\u003dTrue)\n\nprint(\u0027 [*] Waiting for messages. To exit press CTRL+C\u0027)\nchannel.start_consuming()\nconnection.close()\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 5, 2019 2:31:26 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559701874270_1993368994",
+      "id": "20190605-023114_1139732795",
+      "dateCreated": "Jun 5, 2019 2:31:14 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%python\n# Receive a message only\nimport pika\n\nconnection \u003d pika.BlockingConnection(\n    pika.ConnectionParameters(host\u003d\u002710.0.1.13\u0027))\nchannel \u003d connection.channel()\n\nchannel.queue_declare(queue\u003d\u0027hello\u0027)\n\n\ndef callback(ch, method, properties, body):\n    print(\" [x] Received %r\" % body)\n    ch.basic_ack(delivery_tag\u003dmethod.delivery_tag)\n    ch.stop_consuming()\n\nchannel.basic_consume(\n    queue\u003d\u0027hello\u0027, on_message_callback\u003dcallback, auto_ack\u003dFalse)\n\nprint(\u0027 [*] Waiting for messages. To exit press CTRL+C\u0027)\nchannel.start_consuming()\nconnection.close()\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 5, 2019 2:31:40 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": " [*] Waiting for messages. To exit press CTRL+C\n [x] Received b\u0027Hello World!\u0027\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559668550802_63110893",
+      "id": "20190604-171550_1694748690",
+      "dateCreated": "Jun 4, 2019 5:15:50 PM",
+      "dateStarted": "Jun 5, 2019 2:31:40 AM",
+      "dateFinished": "Jun 5, 2019 2:31:40 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%python\n",
+      "user": "anonymous",
+      "dateUpdated": "Jun 7, 2019 6:34:11 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559889251554_-1599529975",
+      "id": "20190607-063411_1154651144",
+      "dateCreated": "Jun 7, 2019 6:34:11 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/Big-data-class/Module-13/RabbitMQ",
+  "id": "2EDHNAF14",
+  "angularObjects": {
+    "2EDKJJEDZ:shared_process": [],
+    "2ED4YE36S:shared_process": [],
+    "2EEG4EDQ1:shared_process": [],
+    "2ED3N6JNP:shared_process": [],
+    "2EC8KCWUX:shared_process": [],
+    "2EEAPS6SJ:shared_process": [],
+    "2EEVMRSHV:shared_process": [],
+    "2EFQRWMFP:shared_process": [],
+    "2EEHUTDV4:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

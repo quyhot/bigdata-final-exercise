@@ -1,0 +1,86 @@
+{
+  "paragraphs": [
+    {
+      "title": "Input is a text file",
+      "text": "%pyspark\nfrom operator import add\n\n# Read data\ninput \u003d sc.textFile(\"file:///README.md\")\n\n# MapReduce\ncounts \u003d input.flatMap(lambda x: x.split(\u0027 \u0027)).map(lambda x: (x, 1)).reduceByKey(lambda x,y:x+y)\nprint(counts)\n\n# Output\noutput \u003d counts.collect()\nfor (word, count) in output:\n    print(\"%s: %i\" % (word, count))",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 10:36:37 AM",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/text",
+        "title": true,
+        "results": {},
+        "enabled": true,
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-3618283167177874428.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 3, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 1608, in reduceByKey\n    return self.combineByKey(lambda x: x, func, func, numPartitions, partitionFunc)\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 1834, in combineByKey\n    numPartitions \u003d self._defaultReducePartitions()\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 2244, in _defaultReducePartitions\n    return self.getNumPartitions()\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 2440, in getNumPartitions\n    return self._prev_jrdd.partitions().size()\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o744.partitions.\n: org.apache.hadoop.mapred.InvalidInputException: Input path does not exist: file:/README.md\n\tat org.apache.hadoop.mapred.FileInputFormat.singleThreadedListStatus(FileInputFormat.java:287)\n\tat org.apache.hadoop.mapred.FileInputFormat.listStatus(FileInputFormat.java:229)\n\tat org.apache.hadoop.mapred.FileInputFormat.getSplits(FileInputFormat.java:315)\n\tat org.apache.spark.rdd.HadoopRDD.getPartitions(HadoopRDD.scala:194)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:252)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:250)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.rdd.RDD.partitions(RDD.scala:250)\n\tat org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:35)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:252)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:250)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.rdd.RDD.partitions(RDD.scala:250)\n\tat org.apache.spark.api.java.JavaRDDLike$class.partitions(JavaRDDLike.scala:61)\n\tat org.apache.spark.api.java.AbstractJavaRDDLike.partitions(JavaRDDLike.scala:45)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-3618283167177874428.py\", line 367, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-3618283167177874428.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 3, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 1608, in reduceByKey\n    return self.combineByKey(lambda x: x, func, func, numPartitions, partitionFunc)\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 1834, in combineByKey\n    numPartitions \u003d self._defaultReducePartitions()\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 2244, in _defaultReducePartitions\n    return self.getNumPartitions()\n  File \"/usr/spark-2.2.0/python/pyspark/rdd.py\", line 2440, in getNumPartitions\n    return self._prev_jrdd.partitions().size()\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o744.partitions.\n: org.apache.hadoop.mapred.InvalidInputException: Input path does not exist: file:/README.md\n\tat org.apache.hadoop.mapred.FileInputFormat.singleThreadedListStatus(FileInputFormat.java:287)\n\tat org.apache.hadoop.mapred.FileInputFormat.listStatus(FileInputFormat.java:229)\n\tat org.apache.hadoop.mapred.FileInputFormat.getSplits(FileInputFormat.java:315)\n\tat org.apache.spark.rdd.HadoopRDD.getPartitions(HadoopRDD.scala:194)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:252)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:250)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.rdd.RDD.partitions(RDD.scala:250)\n\tat org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:35)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:252)\n\tat org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:250)\n\tat scala.Option.getOrElse(Option.scala:121)\n\tat org.apache.spark.rdd.RDD.partitions(RDD.scala:250)\n\tat org.apache.spark.api.java.JavaRDDLike$class.partitions(JavaRDDLike.scala:61)\n\tat org.apache.spark.api.java.AbstractJavaRDDLike.partitions(JavaRDDLike.scala:45)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\n\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559877992180_-1244945934",
+      "id": "20190519-071415_1962473504",
+      "dateCreated": "Jun 7, 2019 3:26:32 AM",
+      "dateStarted": "Jan 3, 2022 10:36:37 AM",
+      "dateFinished": "Jan 3, 2022 10:36:37 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "dateUpdated": "Dec 7, 2021 2:00:46 PM",
+      "config": {
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "results": {},
+        "enabled": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559877992181_-1245330683",
+      "id": "20190519-071929_401743350",
+      "dateCreated": "Jun 7, 2019 3:26:32 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/Big-data-class/Module-09/Word-count",
+  "id": "2ECFKUA4T",
+  "angularObjects": {
+    "2GRT3MNGX:shared_process": [],
+    "2GTGP8NPV:shared_process": [],
+    "2GUCVB5GK:shared_process": [],
+    "2GTCD8J8T:shared_process": [],
+    "2GSQN6JDF:shared_process": [],
+    "2GS1FG3QW:shared_process": [],
+    "2GS41SK79:shared_process": [],
+    "2GTW1N3S4:shared_process": [],
+    "2GU6V5UFH:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
